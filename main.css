@@ -11052,7 +11052,7 @@ fieldset:disabled .btn {
 .btn-hover:hover {
     box-shadow: 0 0 0.5em rgba(121, 121, 121, 0.378)!important;
     color: #fff;
-    border-color: #48484860;
+    border-color: #48484860 solid 1px;
     border-radius: calc(100px);
     transition: all 0.5s;
 }
