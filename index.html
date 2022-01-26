@@ -51,8 +51,16 @@
         }
         
         .btn {
-            border-radius: calc(16px);
+            border-radius: calc(100px);
             color: white;
+        }
+        
+        .btn-righthand {
+            width: 74% !important;
+        }
+        
+        .btn-icon {
+            border-radius: calc(16px);
         }
         
         .card-body {
@@ -83,6 +91,11 @@
         .butang5 {
             background-color: #e66465;
         }
+        
+        .icon-img {
+            width: 60px;
+            border-radius: 100px;
+        }
     </style>
     <title>Hello, world!</title>
 </head>
@@ -100,13 +113,25 @@
                     <center><img class="my-2" src="https://wasap.my/qrcode/phpqrcode/qrcode_landing_page/landing_page92f999ffc0574c10d853de32fbf21916.png" class="rounded mx-auto d-block" alt="...">
                     </center>
                     <div class="d-grid gap-2">
-                        <button class="btn butangwasap btn-lg" type="button">SUCCESS</button>
-                        <button class="btn butang1 btn-lg" type="button">SUCCESS</button>
-                        <button class="btn butang2 btn-lg" type="button">SUCCESS</button>
-                        <button class="btn butang3 btn-lg" type="button">Primary</button>
-                        <button class="btn butang4 btn-lg" type="button">Primary</button>
-                        <button class="btn butang5 btn-lg" type="button">Danger</button>
-                        <button class="btn btn-secondary btn-lg" type="button">Button</button>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn butangwasap btn-lg"><img class="icon-img my-2 float-left" src="https://wasap.my/system/assets/landing_page/profile/247183_11_28-08-2021.jpeg" class="rounded mx-auto d-block" alt="..."</button>
+                            <button type="button" class="btn butangwasap btn-righthand btn-lg text-start">HELLO EVERY BODY HELLO HELLO</button>
+                        </div>
+
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn butang1 btn-lg"><img class="icon-img my-2 float-left" src="https://wasap.my/system/assets/landing_page/profile/247183_11_28-08-2021.jpeg" class="rounded mx-auto d-block" alt="..."</button>
+                            <button type="button" class="btn butang1 btn-righthand btn-lg text-start">HELLO EVERY BODY HELLO HELLO</button>
+                        </div>
+
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn butang2 btn-lg"><img class="icon-img my-2 float-left" src="https://wasap.my/system/assets/landing_page/profile/247183_11_28-08-2021.jpeg" class="rounded mx-auto d-block" alt="..."</button>
+                            <button type="button" class="btn butang2 btn-righthand btn-lg text-start">HELLO EVERY BODY HELLO HELLO</button>
+                        </div>
+
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn butang3 btn-lg"><img class="icon-img my-2 float-left" src="https://wasap.my/system/assets/landing_page/profile/247183_11_28-08-2021.jpeg" class="rounded mx-auto d-block" alt="..."</button>
+                            <button type="button" class="btn butang3 btn-righthand btn-lg text-start">HELLO EVERY BODY HELLO HELLO</button>
+                        </div>
                     </div>
                 </div>
             </div>
