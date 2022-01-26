@@ -12,7 +12,7 @@
     --bs-indigo: #6610f2;
     --bs-purple: #6f42c1;
     --bs-pink: #d63384;
-    --bs-red: #dc3545;
+    --bs-red: #FF2851;
     --bs-orange: #fd7e14;
     --bs-yellow: #ffc107;
     --bs-green: #48DC6B;
@@ -35,7 +35,7 @@
     --bs-success: #48DC6B;
     --bs-info: #0dcaf0;
     --bs-warning: #ffc107;
-    --bs-danger: #dc3545;
+    --bs-danger: #FF2851;
     --bs-light: #f8f9fa;
     --bs-dark: #212529;
     --bs-primary-rgb: 13, 110, 253;
@@ -2853,7 +2853,7 @@ textarea.form-control.is-valid {
     width: 100%;
     margin-top: .25rem;
     font-size: .875em;
-    color: #dc3545
+    color: #FF2851
 }
 
 .invalid-tooltip {
@@ -2879,9 +2879,9 @@ textarea.form-control.is-valid {
 
 .form-control.is-invalid,
 .was-validated .form-control:invalid {
-    border-color: #dc3545;
+    border-color: #FF2851;
     padding-right: calc(1.5em + .75rem);
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23FF2851'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23FF2851' stroke='none'/%3e%3c/svg%3e");
     background-repeat: no-repeat;
     background-position: right calc(.375em + .1875rem) center;
     background-size: calc(.75em + .375rem) calc(.75em + .375rem)
@@ -2889,7 +2889,7 @@ textarea.form-control.is-valid {
 
 .form-control.is-invalid:focus,
 .was-validated .form-control:invalid:focus {
-    border-color: #dc3545;
+    border-color: #FF2851;
     box-shadow: 0 0 0 .25rem rgba(220, 53, 69, .25)
 }
 
@@ -2901,7 +2901,7 @@ textarea.form-control.is-invalid {
 
 .form-select.is-invalid,
 .was-validated .form-select:invalid {
-    border-color: #dc3545
+    border-color: #FF2851
 }
 
 .form-select.is-invalid:not([multiple]):not([size]),
@@ -2909,25 +2909,25 @@ textarea.form-control.is-invalid {
 .was-validated .form-select:invalid:not([multiple]):not([size]),
 .was-validated .form-select:invalid:not([multiple])[size="1"] {
     padding-right: 4.125rem;
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e"), url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e"), url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23FF2851'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23FF2851' stroke='none'/%3e%3c/svg%3e");
     background-position: right .75rem center, center right 2.25rem;
     background-size: 16px 12px, calc(.75em + .375rem) calc(.75em + .375rem)
 }
 
 .form-select.is-invalid:focus,
 .was-validated .form-select:invalid:focus {
-    border-color: #dc3545;
+    border-color: #FF2851;
     box-shadow: 0 0 0 .25rem rgba(220, 53, 69, .25)
 }
 
 .form-check-input.is-invalid,
 .was-validated .form-check-input:invalid {
-    border-color: #dc3545
+    border-color: #FF2851
 }
 
 .form-check-input.is-invalid:checked,
 .was-validated .form-check-input:invalid:checked {
-    background-color: #dc3545
+    background-color: #FF2851
 }
 
 .form-check-input.is-invalid:focus,
@@ -2937,7 +2937,7 @@ textarea.form-control.is-invalid {
 
 .form-check-input.is-invalid~.form-check-label,
 .was-validated .form-check-input:invalid~.form-check-label {
-    color: #dc3545
+    color: #FF2851
 }
 
 .form-check-inline .form-check-input~.invalid-feedback {
@@ -3228,8 +3228,8 @@ fieldset:disabled .btn {
 
 .btn-danger {
     color: #fff;
-    background-color: #dc3545;
-    border-color: #dc3545
+    background-color: #FF2851;
+    border-color: #FF2851
 }
 
 .btn-danger:hover {
@@ -3267,8 +3267,8 @@ fieldset:disabled .btn {
 .btn-danger.disabled,
 .btn-danger:disabled {
     color: #fff;
-    background-color: #dc3545;
-    border-color: #dc3545
+    background-color: #FF2851;
+    border-color: #FF2851
 }
 
 .btn-light {
@@ -3562,14 +3562,14 @@ fieldset:disabled .btn {
 }
 
 .btn-outline-danger {
-    color: #dc3545;
-    border-color: #dc3545
+    color: #FF2851;
+    border-color: #FF2851
 }
 
 .btn-outline-danger:hover {
     color: #fff;
-    background-color: #dc3545;
-    border-color: #dc3545
+    background-color: #FF2851;
+    border-color: #FF2851
 }
 
 .btn-check:focus+.btn-outline-danger,
@@ -3583,8 +3583,8 @@ fieldset:disabled .btn {
 .btn-outline-danger.dropdown-toggle.show,
 .btn-outline-danger:active {
     color: #fff;
-    background-color: #dc3545;
-    border-color: #dc3545
+    background-color: #FF2851;
+    border-color: #FF2851
 }
 
 .btn-check:active+.btn-outline-danger:focus,
@@ -3597,7 +3597,7 @@ fieldset:disabled .btn {
 
 .btn-outline-danger.disabled,
 .btn-outline-danger:disabled {
-    color: #dc3545;
+    color: #FF2851;
     background-color: transparent
 }
 
@@ -6989,7 +6989,7 @@ fieldset:disabled .btn {
 }
 
 .link-danger {
-    color: #dc3545
+    color: #FF2851
 }
 
 .link-danger:focus,
@@ -7440,7 +7440,7 @@ fieldset:disabled .btn {
 }
 
 .border-danger {
-    border-color: #dc3545!important
+    border-color: #FF2851!important
 }
 
 .border-light {
