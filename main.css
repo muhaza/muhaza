@@ -3099,15 +3099,15 @@ fieldset:disabled .btn {
 
 .btn-success:hover {
     color: #fff;
-    background-color: #157347;
-    border-color: #146c43
+    background-color: #36c758;
+    border-color: #36c758
 }
 
 .btn-check:focus+.btn-success,
 .btn-success:focus {
     color: #fff;
     background-color: #157347;
-    border-color: #146c43;
+    border-color: #36c758;
     box-shadow: 0 0 0 .25rem rgba(60, 153, 110, .5)
 }
 
@@ -3117,7 +3117,7 @@ fieldset:disabled .btn {
 .btn-success:active,
 .show>.btn-success.dropdown-toggle {
     color: #fff;
-    background-color: #146c43;
+    background-color: #36c758;
     border-color: #13653f
 }
 
@@ -6967,7 +6967,7 @@ fieldset:disabled .btn {
 
 .link-success:focus,
 .link-success:hover {
-    color: #146c43
+    color: #36c758
 }
 
 .link-info {
