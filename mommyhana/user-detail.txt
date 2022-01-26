@@ -1,0 +1,26 @@
+    //User Data //untuk whatsapp message
+    • adminNumber = "01137844386";
+    • userID = "muhaza9864-Ipoh";
+    • userLink = "beli.muhazastudio.com";
+    • headline = "Saya Nak Mini Page Belion.Us";
+    • adminText = `
+    Sila buat pembayaran RM10 menerusi FPX di nak.belion.us
+    atau secara manual ke akaun%0A
+    Maybank Muhamad Hafiz 155032377034%0A%0A
+    Hantar screenshot semula disini.`;
+    //Content data //Gambar boleh pakai link dari blog atau link facebook
+    • imageLink = "gambar-1.jpg";
+    • iTitle = "🙋‍♀️PAGE PEMASARAN MESRA WHATSAPP";
+    • iSub = "Mudahkan Urusan Whatsapp Perniagaan Anda";
+    • iHarga = "RM25";
+    • iDesc = `
+    👉Membantu mesej whatsapp dari pelanggan anda disusun kemas
+    -
+    👉Memastikan mesej pelanggan anda beserta link 'call to action'.
+    -
+    👉Penyediaan Skrip Jualan secara langsung.
+    -
+    👉Mempunyai strategi funnel yang sesuai untuk bisnes anda.
+    -
+    👉Sangat mesra sharing whatsapp, telegram & fbads
+    -

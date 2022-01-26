@@ -1,0 +1,54 @@
+    //User Data //untuk whatsapp message //boleh guna link dari blog atau website luar
+    • logo = "image/logo.png";
+    • adminNumber = "0177091276";
+    • userID = "Persada Herbs";
+    • userLink = "https:%2F%2Ftoyyibpay.com%2FPropolisRM99";
+    • userBank = "MAYBANK Persada Distribution *558275014221*";
+    • iHarga = "RM99 sahaja";
+    • iHargaTotal = "RM99 FREE POSTAGE PROMOSI";
+    • headline = "*SAYA NAK BLACK SPECTRUM PROPOLIS*";
+    • adminText = `Boleh buat pembayaran ${iHargaTotal} menerusi ${userLink} atau secara manual ke akaun bank%0A${userBank}%0A%0AHantar bukti pembayaran untuk pengesahan pembelian anda.`;
+    //Content data //Gambar boleh pakai link dari blog atau link facebook
+    • imageLink = "image/gambar-1.jpg";
+    • imageLink2 = "image/gambar-2.jpg";
+    • imageLink3 = "image/gambar-3.jpg";
+    • imageLink4 = "image/gambar-1.jpg";
+    // Title Headline dan Subline
+    • iTitle = "🐝PROMOSI SPECTRUM BLACK PROPOLIS🐝";
+    • iSub = "🐝Antibiotik & Rawatan Segera Untuk Anda🐝";
+    • icon = "🙋‍♀️👉👍☂☔💜🧡❤💛🟣🟪";
+    // Content Menarik
+    • iDesc = `
+    👉Untuk masalah kencing manis & luka kencing manis.
+    ---
+    👉Sebagai penawar kanser semula jadi (Makan secara konsistan)
+    ---
+    👉Masalah jerawat batu dan teruk.
+    ---
+    👉Buasir dan masalah usus yang teruk.
+    ---
+    👉Masalah kayap, panau, kurap, penyakit kulit gatal, fungus.
+    ---
+    👉Masalah luka luaran seperti terkena pisau.
+    ---
+    👉 Ada semua jenis vitamin kecuali Vitamin K.
+    ---
+    👉Ada semua zat besi melainkan sulfur.
+    ---
+`;
+    //Call to action
+    • iCta = "MUDAH JE NAK ORDER, ISI BORANG DIBAWAH. <BR>👇OK! DAN HANTAR👇";
+    • iNote = "*FREE POSTAGE";
+
+
+    //• • // - --- // %0A space //
+🦵🦶🤳💪👈👉☝️👆👇✌️🤞🖖🤘🤙🖐️✋👌👍👎✊👊🤛🤜🤚👋
+🤟✍️👏👐🙌🤲🙏🤝👂👃👀🧠👅👄⌛⏳⚡
+🌸💮🏵️🌹🥀🌺🌻🌼🌷🌱🌲🌳🌴🌵🌾🌿☘️🍀🍁🍂🍃🍄
+😀😁😂🤣😃😄😅😆😉😊😋😎😍🥰😘😗😙😚🙂🤗🤩
+🤔🤨😐😑😶🙄😏😣😥😮🤐😯😪😫😴😌😛😜😝🤤😒
+😓😔😕🙃🤑😲☹️🙁😖🥵😞😟🥶🥴😤😢😭😦😧🥳😨
+😩🤯😬😰😱😳🤪😵😡🥺😠🤬😷🤒🤕🤢🤮🤧😇🤠🤥
+🤫🤭🧐🤓😈👿🤡💀☠️👻👽👾🤖💩🙊❤️🧡💛💚💙💜
+👶🧒👦👧🧑👨👱‍♂️🧔👩👱‍♀️🧓👴👵
+🙍‍♂️🙍‍♀️🙎‍♂️🙎‍♀️🙅‍♂️🙅‍♀️🙆‍♂️🙆‍♀️💁‍♂️💁‍♀️🙋‍♂️🙋‍♀️🙇‍♂️🙇‍♀️🤦🤦‍♂️🤦‍♀️🤷🤷‍♂️🤷‍♀️💆‍♂️💆‍♀️💇‍♂️💇‍♀️
