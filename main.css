@@ -11036,5 +11036,45 @@ fieldset:disabled .btn {
     }
 }
 
+.btn {
+    border-radius: calc(100px);
+    color: white;
+    font-size: medium;
+}
+
+.btn:hover {
+    border-radius: calc(100px);
+    color: #3c3c3cc9;
+    font-size: medium;
+    transition: all 0.5s;
+}
+
+.btn-hover:hover {
+    box-shadow: 0 0 0.5em rgba(121, 121, 121, 0.378)!important;
+    color: #fff;
+    border-color: #48484860;
+    border-radius: calc(100px);
+    transition: all 0.5s;
+}
+
+.btn-check:focus+.btn,
+.btn:focus {
+    outline: 0;
+    box-shadow: none;
+}
+
+.btn-righthand {
+    width: 74% !important;
+}
+
+.btn-icon {
+    border-radius: calc(16px);
+}
+
+.card-body {
+    border-radius: calc(16px);
+    box-shadow: 0 0 1em rgba(121, 121, 121, 0.1);
+}
+
 
 /*# sourceMappingURL=bootstrap.min.css.map */
