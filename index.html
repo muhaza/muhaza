@@ -32,6 +32,20 @@
             }
         }
         
+        .rotation-class {
+            width: 200px;
+            animation: rotate-animation 2s ease-out forwards;
+        }
+        
+        @keyframes rotate-animation {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
         .butangwasap {
             background-color: #3AC551;
         }
@@ -114,7 +128,7 @@
         <div class="row justify-content-md-center ">
             <div class="col-xl-5 col-md-8 col-sm">
                 <div class="card-body p-4" style="background-color: #fffffff2;margin-top: 5%;">
-                    <center><img class="profile-img my-2" src="img/logo.png" class="rounded mx-auto d-block" alt="...">
+                    <center><img class="profile-img my-2 rotation-class" src="img/logo.png" class="rounded mx-auto d-block" alt="...">
                     </center>
 
                     <h5 class="card-title text-center">MUHAZA STUDIO</h5>
