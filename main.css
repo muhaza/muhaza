@@ -11022,6 +11022,7 @@ fieldset:disabled .btn {
     border-color: #48484860 solid 1px;
     border-radius: calc(100px);
     transition: all 0.5s;
+    width: 100%;
 }
 
 .btn-hover:hover {
@@ -11030,6 +11031,7 @@ fieldset:disabled .btn {
     border-color: #48484860 solid 1px;
     border-radius: calc(100px);
     transition: all 0.5s;
+    width: 100%;
 }
 
 .btn-check:focus+.btn,
@@ -11055,6 +11057,10 @@ fieldset:disabled .btn {
     margin-left: -1px !important;
     padding-left: none !important;
     padding-right: 16px;
+}
+
+.btn-85 {
+    height: 85px
 }
 
 
