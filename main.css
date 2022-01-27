@@ -2972,7 +2972,8 @@ textarea.form-control.is-invalid {
     user-select: none;
     background-color: transparent;
     border: 1px solid transparent;
-    padding: .375rem .75rem;
+    /* padding: .375rem .75rem; */
+    padding: 2px;
     font-size: 1rem;
     border-radius: .25rem;
     transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out
@@ -11003,49 +11004,15 @@ fieldset:disabled .btn {
     }
 }
 
-@media print {
-    .d-print-inline {
-        display: inline!important
-    }
-    .d-print-inline-block {
-        display: inline-block!important
-    }
-    .d-print-block {
-        display: block!important
-    }
-    .d-print-grid {
-        display: grid!important
-    }
-    .d-print-table {
-        display: table!important
-    }
-    .d-print-table-row {
-        display: table-row!important
-    }
-    .d-print-table-cell {
-        display: table-cell!important
-    }
-    .d-print-flex {
-        display: flex!important
-    }
-    .d-print-inline-flex {
-        display: inline-flex!important
-    }
-    .d-print-none {
-        display: none!important
-    }
-}
-
 .btn {
     border-radius: calc(100px);
     color: white;
-    font-size: medium;
+    padding: none !important;
 }
 
 .btn:hover {
     border-radius: calc(100px);
     color: #3c3c3cc9;
-    font-size: medium;
     transition: all 0.5s;
 }
 
@@ -11074,6 +11041,11 @@ fieldset:disabled .btn {
 .card-body {
     border-radius: calc(16px);
     box-shadow: 0 0 1em rgba(121, 121, 121, 0.1);
+}
+
+.btn-ml {
+    margin-left: -10px !important;
+    padding-left: none !important;
 }
 
 
