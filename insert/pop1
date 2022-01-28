@@ -1,8 +1,33 @@
+<div class="modal fade" id="pop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">ECOMMERCE / WEBSITE DEVELOPMENT </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
 
-<p> • Setup Platform</p>
-<p>• Masuk bidang @ circle yang memerlukan</p>
-<p>• Dapat rezeki (circle) beri rezeki semula (circle)</p>
-<p>• Bina dan susun SOP sesuai dan mudah untuk circle dan platform</p>
-<p>• Memperkayakan output, copy & duplicate segala yang success.</p>
-<p>• Keutamaan kepada yang baik dan halal</p>
-<p>• Kearah pembangunan jiwa positif dan kesihatan</p>
+<!-- content -->
+
+
+<b>Pricing: </b><span class="badge rounded-pill bg-primary">RM1500-3000</span> <span class="badge rounded-pill bg-secondary">Negotiable</span> <br>
+<b>Description :</b> Ecommerce / Corporate Branding Website. <br>
+<b>Duration :</b> 2 Week - 1 Month. <br>
+<b>Platform / Tool :</b> Wordpress, HTML CSS Javascript. <br>
+<b>Jobscope :-</b>
+<hr> Installation & Setting Wordpress, PHP & Mysql Database.
+<hr> Installation Builder & Framework.
+<hr> Installation Basic & Advance Plugin <br>(Base on customer demand / project requirement)
+<hr> User Interface Custom Components <br> Layout, Button, Corporate Color, Fonts, Margin, Padding, Popup & Many More
+
+
+<br><br>
+
+<!-- content -->
+
+ <a href="https://wasap.my/60166759864/Nak Develop Website"> <button type="button" class="btn w-100 btn-primary p-3">HIRE MUHAZA NOW!</button></a>
+
+        </div>
+    </div>
+</div>
+</div>
