@@ -11004,18 +11004,6 @@ fieldset:disabled .btn {
     }
 }
 
-.btn {
-    border-radius: calc(100px);
-    color: white;
-    padding: none !important;
-}
-
-.btn:hover {
-    border-radius: calc(100px);
-    color: whitesmoke;
-    transition: all 0.5s;
-}
-
 .btn-hover {
     box-shadow: 0 0 0.3em rgba(121, 121, 121, 0.378)!important;
     color: #fff;
