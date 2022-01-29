@@ -3712,7 +3712,7 @@ fieldset:disabled .btn {
 }
 
 .fade {
-    transition: opacity .15s linear
+    transition: opacity .05s linear
 }
 
 @media (prefers-reduced-motion:reduce) {
