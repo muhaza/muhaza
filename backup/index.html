@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Document</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Declare style -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- Declare style -->
+    <script id="data">
+        var hello = `database`;
+    </script>
+    <!-- Declare Meta tag-->
+    <script src="display/Dmeta">
+    </script>
+    <script>
+        document.write(Dmeta)
+    </script>
+    <!-- Declare Meta tag-->
+
+</head>
+
+<body>
+
+    <!-- Declare function-->
+    <script src="script/function.js"></script>
+    <!-- Declare function-->
+    <!-- Declare data -->
+
+    <!-- Declare data -->
+    <!-- Declare component -->
+    <script src="display/Dnav.html"></script>
+    <script src="display/Dbody.html"></script>
+    <script src="display/Dfooter"></script>
+    <!-- Declare component -->
+    <!-- Declare template -->
+    <script>
+        var template = `
+        <!--navbar-->
+        ${Dheader} ${Dbody} ${Dfooter}
+        `;
+    </script>
+    <!-- Declare template -->
+    <!-- DHTML Render -->
+    <div id="app">All Content Render Here</div>
+    <!-- DHTML Render -->
+</body>
+<footer>
+    <!-- Declare render -->
+    <script>
+        document.querySelector("#app").innerHTML = `${template}`;
+    </script>
+    <!-- Declare render -->
+    <!-- Declare Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <!-- Declare Bootstrap -->
+</footer>
+
+</html>
