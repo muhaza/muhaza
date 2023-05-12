@@ -1,81 +1,135 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <title>Elliott Wave</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <head>
+    <title>Elliott Wave Calculator</title>
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <script type="text/javascript">
-        function calculate() {
-            var high = parseFloat(document.getElementById("high").value);
-            var low = parseFloat(document.getElementById("low").value);
-            var close = parseFloat(document.getElementById("close").value);
-            var recommendation = document.getElementById("recommendation").value;
-            var title = document.getElementById("title").value;
-            var priceRange = high - low;
-            var resistanceLevel = close + (0.382 * priceRange);
-            var supportLevel = close - (0.382 * priceRange);
-            var entryPrice = (resistanceLevel + supportLevel) / 2;
-            var waveCount = Math.round(priceRange / (close - supportLevel));
-            var tpPrice;
-            var slPrice;
-            if (recommendation == "Go Long") {
-                tpPrice = resistanceLevel + (0.382 * priceRange);
-                slPrice = supportLevel - (0.382 * priceRange);
-            } else if (recommendation == "Go Short") {
-                tpPrice = supportLevel - (0.382 * priceRange);
-                slPrice = resistanceLevel + (0.382 * priceRange);
-            }
-            document.getElementById("entry").innerHTML = "TRADE: " + title + " | Entry Price: " + entryPrice.toFixed(
-            2);
-            document.getElementById("tp").innerHTML = "Take Profit: " + tpPrice.toFixed(2);
-            document.getElementById("sl").innerHTML = "Stop Loss: " + slPrice.toFixed(2);
-            document.getElementById("wave").innerHTML = "Elliott Wave Count: " + waveCount;
-        }
-    </script>
-</head>
-
-<body>
-    <section class="container">
-        <div class="row ">
-            <div class="col-sm"></div>
-            <div class="col-sm-12 col-md-6">
-                <div class="m-4"></div>
-                <h1>Elliott Wave Calculator</h1>
-
-                <form>
-                    <label>Title:</label>
-                    <input class="form-control" type="text" id="title"><br>
-
-                    <label>High:</label>
-                    <input class="form-control" type="text" id="high"><br>
-
-                    <label>Low:</label>
-                    <input class="form-control" type="text" id="low"><br>
-
-                    <label>Close:</label>
-                    <input class="form-control" type="text" id="close"> <br>
-
-                    <label>I would like to:</label>
-                    <select id="recommendation">
-                        <option value="Go Long">Go Long</option>
-                        <option value="Go Short">Go Short</option>
-                    </select><br><br>
-
-                    <input class="btn btn-primary" type="button" value="Calculate" onclick="calculate()">
-                </form><br><br>
-
-                <div id="results">
-                    <p id="entry"></p>
-                    <p id="tp"></p>
-                    <p id="sl"></p>
-                    <p id="wave"></p>
-                </div>
-            </div>
-            <div class="col-sm"></div>
+    <style>
+      .entry-price {
+        color: blue;
+      }
+      
+      .take-profit-price {
+        color: green;
+      }
+      
+      .stop-loss-price {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container mt-4">
+      <h1>Elliott Wave Calculator</h1>
+      <form>
+        <div class="form-group">
+          <label for="high">High:</label>
+          <input type="number" class="form-control" id="high" required>
         </div>
-    </section>
-    <section class="row m-4"></section>
-</body>
-
+        <div class="form-group">
+          <label for="low">Low:</label>
+          <input type="number" class="form-control" id="low" required>
+        </div>
+        <div class="form-group">
+          <label for="close">Close:</label>
+          <input type="number" class="form-control" id="close" required>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="calculateElliottWave()">Calculate</button>
+        <button type="button" class="btn btn-danger" onclick="resetResults()">Reset</button>
+      </form>
+      <hr>
+      <div id="resultContainer"></div>
+    </div>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script>
+      function calculateElliottWave() {
+        const high = Number(document.getElementById('high').value);
+        const low = Number(document.getElementById('low').value);
+        const close = Number(document.getElementById('close').value);
+        const wave = (high + low) / 2;
+        let recommendation = '';
+        if (close > wave) {
+          recommendation = 'Go long';
+        } else {
+          recommendation = 'Go short';
+        }
+        const entryPrice = wave.toFixed(2);
+        const takeProfitPrice = (wave + (high - low)).toFixed(2);
+        const stopLossPrice = (wave - (high - low)).toFixed(2);
+        const result = {
+          wave: wave.toFixed(2),
+          recommendation: recommendation,
+          entryPrice: entryPrice,
+          takeProfitPrice: takeProfitPrice,
+          stopLossPrice: stopLossPrice,
+          date: new Date()
+        };
+        let results = [];
+        if (localStorage.getItem('results')) {
+          results = JSON.parse(localStorage.getItem('results'));
+        }
+        results.push(result);
+        localStorage.setItem('results', JSON.stringify(results));
+        displayResults();
+      }
+      
+      function displayResults() {
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.innerHTML = '';
+        let results = [];
+        if (localStorage.getItem('results')) {
+          results = JSON.parse(localStorage.getItem('results'));
+        }
+        if (results.length === 0) {
+          resultContainer.innerHTML = '<p>No previous results found.</p>';
+        } else {
+          for (let i = 0; i < results.length; i++) {
+            const result = results[i];
+            const card =
+            document.createElement('div');
+            card.className = 'card mb-3';
+            const cardBody = document.createElement('div');
+            cardBody.className = 'card-body';
+            const waveHeading = document.createElement('h5');
+            waveHeading.className = 'card-title';
+            waveHeading.textContent = `Wave: ${result.wave}`;
+            const recommendationParagraph = document.createElement('p');
+            recommendationParagraph.className = 'card-text';
+            recommendationParagraph.textContent = `Recommendation: ${result.recommendation}`;
+            const entryPriceParagraph = document.createElement('p');
+            entryPriceParagraph.className = 'card-text';
+            entryPriceParagraph.innerHTML = `Entry Price: <span class="entry-price">${result.entryPrice}</span>`;
+            const takeProfitPriceParagraph = document.createElement('p');
+            takeProfitPriceParagraph.className = 'card-text';
+            takeProfitPriceParagraph.innerHTML = `HIGH Price: <span class="take-profit-price">${result.takeProfitPrice}</span>`;
+            const stopLossPriceParagraph = document.createElement('p');
+            stopLossPriceParagraph.className = 'card-text';
+            stopLossPriceParagraph.innerHTML = `LOW Price: <span class="stop-loss-price">${result.stopLossPrice}</span>`;
+            const dateParagraph = document.createElement('p');
+            dateParagraph.className = 'card-text';
+            dateParagraph.textContent = `Date: ${result.date}`;
+            cardBody.appendChild(waveHeading);
+            cardBody.appendChild(recommendationParagraph);
+            cardBody.appendChild(entryPriceParagraph);
+            cardBody.appendChild(takeProfitPriceParagraph);
+            cardBody.appendChild(stopLossPriceParagraph);
+            cardBody.appendChild(dateParagraph);
+            card.appendChild(cardBody);
+            resultContainer.appendChild(card);
+          }
+        }
+      }
+      
+      function resetResults() {
+        localStorage.removeItem('results');
+        displayResults();
+      }
+      
+      displayResults();
+    </script>
+  </body>
 </html>
