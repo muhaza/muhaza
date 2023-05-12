@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Elliott Wave</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script type="text/javascript">
+        function calculate() {
+            var high = parseFloat(document.getElementById("high").value);
+            var low = parseFloat(document.getElementById("low").value);
+            var close = parseFloat(document.getElementById("close").value);
+            var recommendation = document.getElementById("recommendation").value;
+            var title = document.getElementById("title").value;
+            var priceRange = high - low;
+            var resistanceLevel = close + (0.382 * priceRange);
+            var supportLevel = close - (0.382 * priceRange);
+            var entryPrice = (resistanceLevel + supportLevel) / 2;
+            var waveCount = Math.round(priceRange / (close - supportLevel));
+            var tpPrice;
+            var slPrice;
+            if (recommendation == "Go Long") {
+                tpPrice = resistanceLevel + (0.382 * priceRange);
+                slPrice = supportLevel - (0.382 * priceRange);
+            } else if (recommendation == "Go Short") {
+                tpPrice = supportLevel - (0.382 * priceRange);
+                slPrice = resistanceLevel + (0.382 * priceRange);
+            }
+            document.getElementById("entry").innerHTML = "TRADE: " + title + " | Entry Price: " + entryPrice.toFixed(
+            2);
+            document.getElementById("tp").innerHTML = "Take Profit: " + tpPrice.toFixed(2);
+            document.getElementById("sl").innerHTML = "Stop Loss: " + slPrice.toFixed(2);
+            document.getElementById("wave").innerHTML = "Elliott Wave Count: " + waveCount;
+        }
+    </script>
+</head>
+
+<body>
+    <section class="container">
+        <div class="row ">
+            <div class="col-sm"></div>
+            <div class="col-sm-12 col-md-6">
+                <div class="m-4"></div>
+                <h1>Elliott Wave Calculator</h1>
+
+                <form>
+                    <label>Title:</label>
+                    <input class="form-control" type="text" id="title"><br>
+
+                    <label>High:</label>
+                    <input class="form-control" type="text" id="high"><br>
+
+                    <label>Low:</label>
+                    <input class="form-control" type="text" id="low"><br>
+
+                    <label>Close:</label>
+                    <input class="form-control" type="text" id="close"> <br>
+
+                    <label>I would like to:</label>
+                    <select id="recommendation">
+                        <option value="Go Long">Go Long</option>
+                        <option value="Go Short">Go Short</option>
+                    </select><br><br>
+
+                    <input class="btn btn-primary" type="button" value="Calculate" onclick="calculate()">
+                </form><br><br>
+
+                <div id="results">
+                    <p id="entry"></p>
+                    <p id="tp"></p>
+                    <p id="sl"></p>
+                    <p id="wave"></p>
+                </div>
+            </div>
+            <div class="col-sm"></div>
+        </div>
+    </section>
+    <section class="row m-4"></section>
+</body>
+
+</html>
