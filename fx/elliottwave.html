@@ -1,38 +1,81 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <title>Elliott Wave Calculator</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <style>
-        .entry-price {
-            color: blue;
-        }
+  </head>
+  <body>
+    <h1>Elliott Wave Calculator</h1>
+    <form>
+      <label for="highPrice">High Price:</label>
+      <input type="number" id="highPrice" name="highPrice" step="0.01" required><br><br>
+      <label for="lowPrice">Low Price:</label>
+      <input type="number" id="lowPrice" name="lowPrice" step="0.01" required><br><br>
+      <label for="closePrice">Close Price:</label>
+      <input type="number" id="closePrice" name="closePrice" step="0.01" required><br><br>
+      <button type="button" onclick="calculate()">Calculate</button><br><br>
+      <label for="waveCount">Wave Count:</label>
+      <input type="text" id="waveCount" name="waveCount" readonly><br><br>
+      <label for="retracement38">38.2% Retracement:</label>
+      <input type="text" id="retracement38" name="retracement38" readonly><br><br>
+      <label for="retracement50">50% Retracement:</label>
+      <input type="text" id="retracement50" name="retracement50" readonly><br><br>
+      <label for="retracement61">61.8% Retracement:</label>
+      <input type="text" id="retracement61" name="retracement61" readonly><br><br>
+      <label for="extension61">61.8% Extension:</label>
+      <input type="text" id="extension61" name="extension61" readonly><br><br>
+      <label for="extension100">100% Extension:</label>
+      <input type="text" id="extension100" name="extension100" readonly><br><br>
+      <label for="extension161">161.8% Extension:</label>
+      <input type="text" id="extension161" name="extension161" readonly><br><br>
+      <label for="extension261">261.8% Extension:</label>
+      <input type="text" id="extension261" name="extension261" readonly><br><br>
+      <label for="stopLoss">Stop Loss:</label>
+      <input type="text" id="stopLoss" name="stopLoss" readonly><br><br>
+      <label for="takeProfit">Take Profit:</label>
+      <input type="text" id="takeProfit" name="takeProfit" readonly><br><br>
+    </form>
+    <script>
+      function calculate() {
+        // get the input values
+        const highPrice = parseFloat(document.getElementById('highPrice').value);
+        const lowPrice = parseFloat(document.getElementById('lowPrice').value);
+        const closePrice = parseFloat(document.getElementById('closePrice').value);
 
-        .take-profit-price {
-            color: green;
-        }
+        // calculate the wave count
+        // you can use any Elliott Wave analysis library or tool for this
+        const waveCount = '3'; // just an example, you need to replace this with your calculation
 
-        .stop-loss-price {
-            color: red;
-        }
-    </style>
-</head>
+        // calculate the Fibonacci retracement levels
+        const previousWaveHigh = highPrice;
+        const previousWaveLow = lowPrice;
+        const retracement38 = (previousWaveHigh - previousWaveLow) *
+        0.382 + previousWaveLow;
+const retracement50 = (previousWaveHigh - previousWaveLow) * 0.5 + previousWaveLow;
+const retracement61 = (previousWaveHigh - previousWaveLow) * 0.618 + previousWaveLow;
+    // calculate the Fibonacci extension levels
+    const waveLength = previousWaveHigh - previousWaveLow;
+    const extension61 = previousWaveHigh + (waveLength * 0.618);
+    const extension100 = previousWaveHigh + waveLength;
+    const extension161 = previousWaveHigh + (waveLength * 1.618);
+    const extension261 = previousWaveHigh + (waveLength * 2.618);
 
-<body>
-    <section>
-       <center><table>
-            <tr>
-                <td align='center'><br /><iframe
-                        src='http://stockmaniacs.net/calculators/widgets/elliott.html' name='Elliott Wave Calculator'
-                        width='500' height='350' marginwidth="0" marginheight="0" frameborder="0" scrolling='no'></iframe>
-                </td>
-            </tr>
-        </table></center> 
-    </section>
-   
+    // calculate the stop loss and take profit levels
+    const stopLoss = previousWaveHigh + (waveLength * 0.02); // 2% above previous wave high
+    const takeProfit = previousWaveLow - (waveLength * 0.02); // 2% below previous wave low
+
+    // set the output values
+    document.getElementById('waveCount').value = waveCount;
+    document.getElementById('retracement38').value = retracement38.toFixed(2);
+    document.getElementById('retracement50').value = retracement50.toFixed(2);
+    document.getElementById('retracement61').value = retracement61.toFixed(2);
+    document.getElementById('extension61').value = extension61.toFixed(2);
+    document.getElementById('extension100').value = extension100.toFixed(2);
+    document.getElementById('extension161').value = extension161.toFixed(2);
+    document.getElementById('extension261').value = extension261.toFixed(2);
+    document.getElementById('stopLoss').value = stopLoss.toFixed(2);
+    document.getElementById('takeProfit').value = takeProfit.toFixed(2);
+  }
+</script>
+
 </body>
-
 </html>
