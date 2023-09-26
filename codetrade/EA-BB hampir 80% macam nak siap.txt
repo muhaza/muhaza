@@ -1,0 +1,156 @@
+// Bollinger Bands Expert Advisor with EMA50 Trend Filter
+
+extern int Period_BB = 48;
+extern double Deviation_BB = 2.0;
+extern double LotSize = 0.01;
+extern int StopLoss = 250;
+extern int TakeProfit = 500;
+extern int TrailingStop = 50;
+extern int MaxOpenOrders = 1; // Maximum allowed open orders
+extern int TradeTimeframe = 5; // 1 = M1, 5 = M5, 15 = M15
+extern bool UseTrailingStop = true; // Enable or disable trailing stop
+extern int BreakevenProfit = 200; // Profit in points to activate breakeven
+extern int BreakevenPoints = 10; // Breakeven distance from entry level
+
+extern bool UseEMATrendFilter = true; // Enable or disable EMA50 trend filter
+extern int Period_EMA = 50; // Period for calculating EMA50
+
+double maxProfit = 0; // Variable to keep track of the maximum profit
+
+void OnTick()
+{
+    if (Period() != GetTimeframe(TradeTimeframe))
+    {
+        // Only allow trading on the selected timeframe
+        return;
+    }
+
+    if (IsNewCandle())
+    {
+        double upperBand = iBands(Symbol(), 0, Period_BB, Deviation_BB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+        double lowerBand = iBands(Symbol(), 0, Period_BB, Deviation_BB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+        double closePrice = Close[0];
+
+        double ema50 = iMA(Symbol(), 0, Period_EMA, 0, MODE_EMA, PRICE_CLOSE, 0);
+
+        // Buy order
+        if (closePrice > upperBand && !OpenOrderAvailable(OP_BUY))
+        {
+            // Check if EMA50 trend filter is enabled and if the price is above EMA50
+            if (!UseEMATrendFilter || (UseEMATrendFilter && closePrice > ema50))
+            {
+                double takeProfitPriceBuy = Ask + TakeProfit * Point;
+                double stopLossPriceBuy = closePrice - StopLoss * Point;
+                double breakevenPriceBuy = OrderOpenPrice() + BreakevenPoints * Point; // Calculate breakeven price
+
+                // Check if trailing stop is enabled
+                if (UseTrailingStop)
+                {
+                    ExecuteOrder(OP_BUY, Ask, stopLossPriceBuy, takeProfitPriceBuy);
+                }
+                else
+                {
+                    // Apply breakeven if profit is greater than BreakevenProfit
+                    if (BreakevenProfit > 0 && OrderProfit() > BreakevenProfit * Point)
+                    {
+                        stopLossPriceBuy = breakevenPriceBuy; // Move stop loss to breakeven level
+                        ExecuteOrder(OP_BUY, Ask, stopLossPriceBuy, takeProfitPriceBuy);
+                    }
+                    else
+                    {
+                        ExecuteOrder(OP_BUY, Ask, stopLossPriceBuy, takeProfitPriceBuy);
+                    }
+                }
+            }
+        }
+
+        // Sell order
+        if (closePrice < lowerBand && !OpenOrderAvailable(OP_SELL))
+        {
+            // Check if EMA50 trend filter is enabled and if the price is below EMA50
+            if (!UseEMATrendFilter || (UseEMATrendFilter && closePrice < ema50))
+            {
+                double takeProfitPriceSell = Bid - TakeProfit * Point;
+                double stopLossPriceSell = closePrice + StopLoss * Point;
+                double breakevenPriceSell = OrderOpenPrice() - BreakevenPoints * Point; // Calculate breakeven price
+
+                // Check if trailing stop is enabled
+                if (UseTrailingStop)
+                {
+                    ExecuteOrder(OP_SELL, Bid, stopLossPriceSell, takeProfitPriceSell);
+                }
+                else
+                {
+                    // Apply breakeven if profit is greater than BreakevenProfit
+                    if (BreakevenProfit > 0 && OrderProfit() > BreakevenProfit * Point)
+                    {
+                        stopLossPriceSell = breakevenPriceSell; // Move stop loss to breakeven level
+                        ExecuteOrder(OP_SELL, Bid, stopLossPriceSell, takeProfitPriceSell);
+                    }
+                    else
+                    {
+                        ExecuteOrder(OP_SELL, Bid, stopLossPriceSell, takeProfitPriceSell);
+                    }
+                }
+            }
+        }
+    }
+}
+
+void ExecuteOrder(int orderType, double entryPrice, double stopLossPrice, double takeProfitPrice)
+{
+    double lotSize = LotSize;
+    int slippage = 3;
+    int magicNumber = (orderType == OP_BUY) ? 1234 : 5678;
+
+    int ticket = OrderSend(Symbol(), orderType, lotSize, entryPrice, slippage, stopLossPrice, takeProfitPrice, "", magicNumber);
+    if (ticket <= 0)
+    {
+        Print("OrderSend error: ", GetLastError());
+    }
+}
+
+bool IsNewCandle()
+{
+    static datetime lastTime = 0;
+    datetime currentTime = Time[0];
+
+    if (lastTime != currentTime)
+    {
+        lastTime = currentTime;
+        return true;
+    }
+
+    return false;
+}
+
+bool OpenOrderAvailable(int orderType)
+{
+    int openOrdersCount = 0;
+    for (int i = 0; i < OrdersTotal(); i++)
+    {
+        if (OrderSelect(i, SELECT_BY_POS, MODE_TRADES))
+        {
+            if (OrderSymbol() == Symbol() && OrderMagicNumber() == (orderType == OP_BUY ? 1234 : 5678) && OrderType() == orderType)
+            {
+                openOrdersCount++;
+                if (openOrdersCount >= MaxOpenOrders)
+                {
+                    return true; // Maximum allowed open orders reached
+                }
+            }
+        }
+    }
+    return false; // No open buy or sell orders found or within the limit
+}
+
+int GetTimeframe(int timeframe)
+{
+    switch (timeframe)
+    {
+        case 1: return PERIOD_M1;
+        case 5: return PERIOD_M5;
+        case 15: return PERIOD_M15;
+        default: return 0; // Invalid timeframe
+    }
+}

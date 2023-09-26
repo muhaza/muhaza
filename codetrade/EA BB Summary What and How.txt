@@ -1,0 +1,21 @@
+Summary of the Bollinger Bands Expert Advisor:
+
+The Bollinger Bands Expert Advisor is a trading algorithm designed to automate trading decisions based on the Bollinger Bands indicator. The EA operates on a selected timeframe (M1, M5, or M15) and trades a single currency pair.
+
+Key Features:
+
+Bollinger Bands Parameters: The EA allows users to set the Bollinger Bands parameters, such as the period and standard deviation.
+
+Trade Management: The EA manages trade entries, exits, stop-loss, and take-profit levels.
+
+Entry Logic: The EA generates buy signals when the current price closes above the upper Bollinger Band and there are no existing open buy orders. Similarly, it generates sell signals when the price closes below the lower Bollinger Band and there are no existing open sell orders.
+
+Trailing Stop: Users can enable or disable the trailing stop feature using the UseTrailingStop parameter. If enabled, the EA applies a trailing stop to the open orders.
+
+Breakeven Feature: Users can set the BreakevenProfit parameter, which activates a breakeven mechanism. When a trade reaches a specified profit level (BreakevenProfit), the EA moves the stop-loss level to the entry price plus a specified distance (BreakevenPoints) for buy orders or minus the specified distance for sell orders.
+
+Max Open Orders: The EA allows setting the maximum number of open orders (MaxOpenOrders). If the maximum number of orders is reached, the EA will not open additional orders until some existing orders are closed.
+
+Trade Execution: The EA executes trades using the OrderSend function and checks for successful execution of orders.
+
+Timeframe Selection: The EA only allows trading on the selected timeframe and ignores trading signals from other timeframes.

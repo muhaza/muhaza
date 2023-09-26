@@ -1,0 +1,150 @@
+// Bollinger Bands Expert Advisor
+
+extern int Period_BB = 20;
+extern double Deviation_BB = 2.0;
+extern double LotSize = 0.1;
+extern int StopLoss = 100;
+extern int TakeProfit = 200;
+extern int TrailingStop = 50;
+extern int MaxOpenOrders = 2; // Maximum allowed open orders
+
+int totalBuyOrders = 0;
+int totalSellOrders = 0;
+
+void OnTick()
+{
+    if (IsNewCandle())
+    {
+        double upperBand = iBands(Symbol(), 0, Period_BB, Deviation_BB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+        double lowerBand = iBands(Symbol(), 0, Period_BB, Deviation_BB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+        double closePrice = Close[0];
+
+        // Check for closed buy orders and update the totalBuyOrders count
+        for (int buyIdx = OrdersTotal() - 1; buyIdx >= 0; buyIdx--)
+        {
+            if (OrderSelect(buyIdx, SELECT_BY_POS, MODE_TRADES))
+            {
+                if (OrderMagicNumber() == 1234 && OrderType() == OP_BUY && OrderCloseTime() > 0)
+                {
+                    totalBuyOrders--;
+                }
+            }
+        }
+
+        // Check for closed sell orders and update the totalSellOrders count
+        for (int sellIdx = OrdersTotal() - 1; sellIdx >= 0; sellIdx--)
+        {
+            if (OrderSelect(sellIdx, SELECT_BY_POS, MODE_TRADES))
+            {
+                if (OrderMagicNumber() == 5678 && OrderType() == OP_SELL && OrderCloseTime() > 0)
+                {
+                    totalSellOrders--;
+                }
+            }
+        }
+
+        // Buy order
+        if (closePrice > upperBand && totalBuyOrders < MaxOpenOrders)
+        {
+            double takeProfitPriceBuy = Ask + TakeProfit * Point;
+            double stopLossPriceBuy = closePrice - StopLoss * Point;
+            ExecuteOrder(OP_BUY, Ask, stopLossPriceBuy, takeProfitPriceBuy);
+        }
+
+        // Sell order
+        if (closePrice < lowerBand && totalSellOrders < MaxOpenOrders)
+        {
+            double takeProfitPriceSell = Bid - TakeProfit * Point;
+            double stopLossPriceSell = closePrice + StopLoss * Point;
+            ExecuteOrder(OP_SELL, Bid, stopLossPriceSell, takeProfitPriceSell);
+        }
+
+        // Trailing stop for open buy orders
+        for (int buyTrailIdx = OrdersTotal() - 1; buyTrailIdx >= 0; buyTrailIdx--)
+        {
+            if (OrderSelect(buyTrailIdx, SELECT_BY_POS, MODE_TRADES))
+            {
+                if (OrderMagicNumber() == 1234 && OrderType() == OP_BUY && !OrderCloseTime())
+                {
+                    double currentStopLossBuy = OrderStopLoss();
+                    double trailingStopPriceBuy = closePrice - TrailingStop * Point;
+
+                    // Adjust the stop loss to the trailing stop price if it's higher and not already modified
+                    if (trailingStopPriceBuy > currentStopLossBuy)
+                    {
+                        int modifyResultBuy = OrderModify(OrderTicket(), 0, trailingStopPriceBuy, OrderTakeProfit(), 0, clrNONE);
+                        if (!modifyResultBuy)
+                        {
+                            Print("OrderModify error: ", GetLastError());
+                        }
+                    }
+                }
+            }
+        }
+
+        // Trailing stop for open sell orders
+        for (int sellTrailIdx = OrdersTotal() - 1; sellTrailIdx >= 0; sellTrailIdx--)
+        {
+            if (OrderSelect(sellTrailIdx, SELECT_BY_POS, MODE_TRADES))
+            {
+                if (OrderMagicNumber() == 5678 && OrderType() == OP_SELL && !OrderCloseTime())
+                {
+                    double currentStopLossSell = OrderStopLoss();
+                    double trailingStopPriceSell = closePrice + TrailingStop * Point;
+
+                    // Adjust the stop loss to the trailing stop price if it's lower and not already modified
+                    if (trailingStopPriceSell < currentStopLossSell)
+                    {
+                        int modifyResultSell = OrderModify(OrderTicket(), 0, trailingStopPriceSell, OrderTakeProfit(), 0, clrNONE);
+                        if (!modifyResultSell)
+                        {
+                            Print("OrderModify error: ", GetLastError());
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+void ExecuteOrder(int orderType, double entryPrice, double stopLossPrice, double takeProfitPrice)
+{
+    double lotSize = LotSize;
+    int slippage = 3;
+    int magicNumber = (orderType == OP_BUY) ? 1234 : 5678;
+
+    int ticket = OrderSend(Symbol(), orderType, lotSize, entryPrice, slippage, stopLossPrice, takeProfitPrice, "", magicNumber);
+    if (ticket <= 0)
+    {
+        Print("OrderSend error: ", GetLastError());
+    }
+}
+
+bool IsNewCandle()
+{
+    static datetime lastTime = 0;
+    datetime currentTime = Time[0];
+
+    if (lastTime != currentTime)
+    {
+        lastTime = currentTime;
+        return true;
+    }
+
+    return false;
+}
+
+bool OpenOrderAvailable(int orderType)
+{
+    for (int i = 0; i < OrdersTotal(); i++)
+    {
+        if (OrderSelect(i, SELECT_BY_POS, MODE_TRADES))
+        {
+            if (OrderSymbol() == Symbol() && OrderMagicNumber() == (orderType == OP_BUY ? 1234 : 5678) && OrderType() == orderType)
+            {
+                return true; // An open buy or sell order already exists
+            }
+        }
+    }
+    return false; // No open buy or sell orders found
+}

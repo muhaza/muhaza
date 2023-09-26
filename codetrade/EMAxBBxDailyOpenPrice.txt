@@ -1,0 +1,138 @@
+// Bollinger Bands Expert Advisor
+
+// Input parameters
+extern int Period_BB = 20;             // Bollinger Bands period
+extern double Deviation_BB = 2.0;      // Bollinger Bands standard deviation
+extern double LotSize = 0.01;         // Lot size for each trade
+extern int StopLoss = 250;            // Stop loss in points
+extern int TakeProfit = 500;          // Take profit in points
+extern int TrailingStop = 50;         // Trailing stop in points
+extern int MaxOpenOrders = 1;         // Maximum allowed open orders
+extern int TradeTimeframe = 5;        // 1 = M1, 5 = M5, 15 = M15
+extern bool UseTrailingStop = true;   // Enable or disable trailing stop
+extern bool UseDailyOpenFilter = true; // Enable or disable the Daily Open Price filter
+
+// OnTick function, called on each tick
+void OnTick()
+{
+    if (Period() != GetTimeframe(TradeTimeframe))
+    {
+        // Only allow trading on the selected timeframe
+        return;
+    }
+
+    if (IsNewCandle())
+    {
+        double upperBand = iBands(Symbol(), 0, Period_BB, Deviation_BB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+        double lowerBand = iBands(Symbol(), 0, Period_BB, Deviation_BB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+        double closePrice = Close[0];
+
+        // Daily Open Price filter
+        if (UseDailyOpenFilter)
+        {
+            double dailyOpenPrice = iOpen(Symbol(), GetTimeframe(1440), 0); // 1440 = D1 timeframe
+            bool isCandleAboveDailyOpen = closePrice > dailyOpenPrice;
+            bool isCandleBelowDailyOpen = closePrice < dailyOpenPrice;
+
+            if ((isCandleAboveDailyOpen && !OpenOrderAvailable(OP_BUY)) ||
+                (isCandleBelowDailyOpen && !OpenOrderAvailable(OP_SELL)))
+            {
+                // Buy order
+                if (isCandleAboveDailyOpen && closePrice > upperBand)
+                {
+                    double takeProfitPriceBuy = Ask + TakeProfit * Point;
+                    double stopLossPriceBuy = closePrice - StopLoss * Point;
+                    ExecuteOrder(OP_BUY, Ask, stopLossPriceBuy, takeProfitPriceBuy);
+                }
+
+                // Sell order
+                if (isCandleBelowDailyOpen && closePrice < lowerBand)
+                {
+                    double takeProfitPriceSell = Bid - TakeProfit * Point;
+                    double stopLossPriceSell = closePrice + StopLoss * Point;
+                    ExecuteOrder(OP_SELL, Bid, stopLossPriceSell, takeProfitPriceSell);
+                }
+            }
+        }
+        else // If Daily Open filter is disabled, use the previous logic
+        {
+            // Buy order
+            if (closePrice > upperBand && !OpenOrderAvailable(OP_BUY))
+            {
+                double takeProfitPriceBuy = Ask + TakeProfit * Point;
+                double stopLossPriceBuy = closePrice - StopLoss * Point;
+                ExecuteOrder(OP_BUY, Ask, stopLossPriceBuy, takeProfitPriceBuy);
+            }
+
+            // Sell order
+            if (closePrice < lowerBand && !OpenOrderAvailable(OP_SELL))
+            {
+                double takeProfitPriceSell = Bid - TakeProfit * Point;
+                double stopLossPriceSell = closePrice + StopLoss * Point;
+                ExecuteOrder(OP_SELL, Bid, stopLossPriceSell, takeProfitPriceSell);
+            }
+        }
+    }
+}
+
+// Function to execute orders
+void ExecuteOrder(int orderType, double entryPrice, double stopLossPrice, double takeProfitPrice)
+{
+    double lotSize = LotSize;
+    int slippage = 3;
+    int magicNumber = (orderType == OP_BUY) ? 1234 : 5678;
+
+    int ticket = OrderSend(Symbol(), orderType, lotSize, entryPrice, slippage, stopLossPrice, takeProfitPrice, "", magicNumber);
+    if (ticket <= 0)
+    {
+        Print("OrderSend error: ", GetLastError());
+    }
+}
+
+// Function to check if a new candle has formed
+bool IsNewCandle()
+{
+    static datetime lastTime = 0;
+    datetime currentTime = Time[0];
+
+    if (lastTime != currentTime)
+    {
+        lastTime = currentTime;
+        return true;
+    }
+
+    return false;
+}
+
+// Function to check if the maximum allowed open orders has been reached
+bool OpenOrderAvailable(int orderType)
+{
+    int openOrdersCount = 0;
+    for (int i = 0; i < OrdersTotal(); i++)
+    {
+        if (OrderSelect(i, SELECT_BY_POS, MODE_TRADES))
+        {
+            if (OrderSymbol() == Symbol() && OrderMagicNumber() == (orderType == OP_BUY ? 1234 : 5678) && OrderType() == orderType)
+            {
+                openOrdersCount++;
+                if (openOrdersCount >= MaxOpenOrders)
+                {
+                    return true; // Maximum allowed open orders reached
+                }
+            }
+        }
+    }
+    return false; // No open buy or sell orders found or within the limit
+}
+
+// Function to map the selected timeframe to M1, M5, or M15
+int GetTimeframe(int timeframe)
+{
+    switch (timeframe)
+    {
+        case 1: return PERIOD_M1;
+        case 5: return PERIOD_M5;
+        case 15: return PERIOD_M15;
+        default: return 0; // Invalid timeframe
+    }
+}

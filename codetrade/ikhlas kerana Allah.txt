@@ -1,0 +1,161 @@
+// Bollinger Bands Expert Advisor with Security and Privilege
+
+extern int Period_BB = 48;
+extern double Deviation_BB = 2.0;
+extern double LotSize = 0.01;
+extern int StopLoss = 250;
+extern int TakeProfit = 500;
+extern int TrailingStop = 50;
+extern int MaxOpenOrders = 1; // Maximum allowed open orders
+extern int TradeTimeframe = 5; // 1 = M1, 5 = M5, 15 = M15
+extern bool UseTrailingStop = true; // Enable or disable trailing stop
+extern int BreakevenProfit = 200; // Profit in points to activate breakeven
+extern int BreakevenPoints = 10; // Breakeven distance from order level
+
+input string ActivationCode = "YOUR_SPECIAL_CODE"; // The special code to enable the EA
+
+void OnTick()
+{
+    // Check if the user entered the correct code to enable the EA
+    bool securityEnabled = CheckActivationCode(ActivationCode);
+
+    if (!securityEnabled)
+    {
+        Print("EA is disabled. Please enter the correct activation code.");
+        Alert("EA is disabled. Please enter the correct activation code.");
+        return;
+    }
+
+    if (Period() != GetTimeframe(TradeTimeframe))
+    {
+        // Only allow trading on the selected timeframe
+        return;
+    }
+
+    if (IsNewCandle())
+    {
+        double upperBand = iBands(Symbol(), 0, Period_BB, Deviation_BB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+        double lowerBand = iBands(Symbol(), 0, Period_BB, Deviation_BB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+        double closePrice = Close[0];
+
+        // Buy order
+        if (closePrice > upperBand && !OpenOrderAvailable(OP_BUY))
+        {
+            double takeProfitPriceBuy = Ask + TakeProfit * Point;
+            double stopLossPriceBuy = closePrice - StopLoss * Point;
+            double breakevenPriceBuy = Ask + BreakevenPoints * Point;
+
+            // Check if trailing stop is enabled
+            if (UseTrailingStop)
+            {
+                ExecuteOrder(OP_BUY, Ask, stopLossPriceBuy, takeProfitPriceBuy);
+            }
+            else
+            {
+                // Apply breakeven if profit is greater than BreakevenProfit
+                if (BreakevenProfit > 0 && OrderProfit() > BreakevenProfit * Point)
+                {
+                    ExecuteOrder(OP_BUY, Ask, breakevenPriceBuy, takeProfitPriceBuy);
+                }
+                else
+                {
+                    ExecuteOrder(OP_BUY, Ask, stopLossPriceBuy, takeProfitPriceBuy);
+                }
+            }
+        }
+
+        // Sell order
+        if (closePrice < lowerBand && !OpenOrderAvailable(OP_SELL))
+        {
+            double takeProfitPriceSell = Bid - TakeProfit * Point;
+            double stopLossPriceSell = closePrice + StopLoss * Point;
+            double breakevenPriceSell = Bid - BreakevenPoints * Point;
+
+            // Check if trailing stop is enabled
+            if (UseTrailingStop)
+            {
+                ExecuteOrder(OP_SELL, Bid, stopLossPriceSell, takeProfitPriceSell);
+            }
+            else
+            {
+                // Apply breakeven if profit is greater than BreakevenProfit
+                if (BreakevenProfit > 0 && OrderProfit() > BreakevenProfit * Point)
+                {
+                    ExecuteOrder(OP_SELL, Bid, breakevenPriceSell, takeProfitPriceSell);
+                }
+                else
+                {
+                    ExecuteOrder(OP_SELL, Bid, stopLossPriceSell, takeProfitPriceSell);
+                }
+            }
+        }
+    }
+}
+
+void ExecuteOrder(int orderType, double entryPrice, double stopLossPrice, double takeProfitPrice)
+{
+    double lotSize = LotSize;
+    int slippage = 3;
+    int magicNumber = (orderType == OP_BUY) ? 1234 : 5678;
+
+    int ticket = OrderSend(Symbol(), orderType, lotSize, entryPrice, slippage, stopLossPrice, takeProfitPrice, "", magicNumber);
+    if (ticket <= 0)
+    {
+        Print("OrderSend error: ", GetLastError());
+    }
+}
+
+bool IsNewCandle()
+{
+    static datetime lastTime = 0;
+    datetime currentTime = Time[0];
+
+    if (lastTime != currentTime)
+    {
+        lastTime = currentTime;
+        return true;
+    }
+
+    return false;
+}
+
+bool OpenOrderAvailable(int orderType)
+{
+    int openOrdersCount = 0;
+    for (int i = 0; i < OrdersTotal(); i++)
+    {
+        if (OrderSelect(i, SELECT_BY_POS, MODE_TRADES))
+        {
+            if (OrderSymbol() == Symbol() && OrderMagicNumber() == (orderType == OP_BUY ? 1234 : 5678) && OrderType() == orderType)
+            {
+                openOrdersCount++;
+                if (openOrdersCount >= MaxOpenOrders)
+                {
+                    return true; // Maximum allowed open orders reached
+                }
+            }
+        }
+    }
+    return false; // No open buy or sell orders found or within the limit
+}
+
+int GetTimeframe(int timeframe)
+{
+    switch (timeframe)
+    {
+        case 1: return PERIOD_M1;
+        case 5: return PERIOD_M5;
+        case 15: return PERIOD_M15;
+        default: return 0; // Invalid timeframe
+    }
+}
+
+// Function to check the entered activation code
+bool CheckActivationCode(string code)
+{
+    // Implement your code verification logic here
+    // For example, you can use a fixed code or a hash function to check the validity of the entered code
+
+    // Replace "YOUR_SPECIAL_CODE" with your actual activation code or logic
+    return code == "createdby_muhazastudio"; // Return true if the code is correct, otherwise false
+}
