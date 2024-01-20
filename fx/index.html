@@ -14,16 +14,24 @@
 }
     </style>
     <!-- myfxbook.com outlook widget - Start -->
-<div>
-    <script class="powered" type="text/javascript"
-            src="https://widgets.myfxbook.com/scripts/fxOutlook.js?type=1&symbols=,1,2,3,4,5,6,7,8,9,10,11,12,13,14,17,20,24,25,26,27,28,29,46,47,48,49,50,51,103,107,1209,1806,2348,5079"></script>
+<!-- TradingView Widget BEGIN -->
+<div class="tradingview-widget-container">
+  <div class="tradingview-widget-container__widget"></div>
+  <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"><span class="blue-text">Track all markets on TradingView</span></a></div>
+  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+  {
+  "symbol": "CME:6B1!",
+  "width": 350,
+  "height": 220,
+  "locale": "en",
+  "dateRange": "1M",
+  "colorTheme": "dark",
+  "isTransparent": false,
+  "autosize": false,
+  "largeChartUrl": ""
+}
+  </script>
 </div>
-<div style="font-size: 10px">
-<a href="https://www.myfxbook.com" title="" class="myfxbookLink" target="_self" rel="noopener">
-            Powered by Myfxbook.com</a>
-    </div>
-
-<script type="text/javascript">showOutlookWidget()</script>
-<!-- myfxbook.com outlook widget - End -->
+<!-- TradingView Widget END -->
 </body>
 </html>
