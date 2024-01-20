@@ -13,23 +13,25 @@
             background-color: #1E222D;
             color: white;
         }
+
+        @media only screen and (min-device-width : 360px) and (max-width: 991px) {
+            .pc {
+                display: none;
+            }
+        }
     </style>
     </head>
 
     <body>
 
         <div class="container text-center">
-            <div class="row">
-                <div class="col-sm">
-                    <h1>Market Outlook Between Indice and Forex</h1>
-                </div>
-            </div>
+            
         </div>
 
         <div class="container text-center">
             <div class="row">
-
-                <div class="col-sm">
+                    <h1>Market Outlook Between Indice and Forex</h1>
+                <div class="col-sm p-1">
                     <!-- TradingView Widget BEGIN -->
                     <div class="tradingview-widget-container">
                         <div class="tradingview-widget-container__widget"></div>
@@ -46,7 +48,7 @@
                                 "isTransparent": false,
                                 "showSymbolLogo": true,
                                 "showFloatingTooltip": false,
-                                "width": "600",
+                                "width": "360",
                                 "height": "800",
                                 "plotLineColorGrowing": "rgba(0, 255, 0, 1)",
                                 "plotLineColorFalling": "rgba(255, 0, 0, 1)",
@@ -91,7 +93,7 @@
                     <!-- TradingView Widget END -->
                 </div>
 
-                <div class="col-sm">
+                <div class="col-sm p-1">
                     <!-- TradingView Widget BEGIN -->
                     <div class="tradingview-widget-container">
                         <div class="tradingview-widget-container__widget"></div>
@@ -108,7 +110,7 @@
                                 "isTransparent": false,
                                 "showSymbolLogo": true,
                                 "showFloatingTooltip": false,
-                                "width": "600",
+                                "width": "360",
                                 "height": "800",
                                 "plotLineColorGrowing": "rgba(0, 255, 0, 1)",
                                 "plotLineColorFalling": "rgba(255, 0, 0, 1)",
@@ -175,11 +177,11 @@
             </div>
         </div>
 
-        <div class="container text-center">
+        <div class="container text-center pc">
             <div class="row">
                 <div class="col-sm">
                     <!-- TradingView Widget BEGIN -->
-                    <!-- <div class="tradingview-widget-container">
+                    <div class="tradingview-widget-container">
                         <div class="tradingview-widget-container__widget"></div>
                         <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/"
                                 rel="noopener nofollow" target="_blank"><span class="blue-text"></span></a></div>
@@ -203,7 +205,7 @@
                                 "locale": "en"
                             }
                         </script>
-                    </div> -->
+                    </div>
                     <!-- TradingView Widget END -->
                 </div>
             </div>
