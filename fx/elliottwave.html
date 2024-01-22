@@ -1,81 +1,110 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Elliott Wave Calculator</title>
-  </head>
-  <body>
-    <h1>Elliott Wave Calculator</h1>
-    <form>
-      <label for="highPrice">High Price:</label>
-      <input type="number" id="highPrice" name="highPrice" step="0.01" required><br><br>
-      <label for="lowPrice">Low Price:</label>
-      <input type="number" id="lowPrice" name="lowPrice" step="0.01" required><br><br>
-      <label for="closePrice">Close Price:</label>
-      <input type="number" id="closePrice" name="closePrice" step="0.01" required><br><br>
-      <button type="button" onclick="calculate()">Calculate</button><br><br>
-      <label for="waveCount">Wave Count:</label>
-      <input type="text" id="waveCount" name="waveCount" readonly><br><br>
-      <label for="retracement38">38.2% Retracement:</label>
-      <input type="text" id="retracement38" name="retracement38" readonly><br><br>
-      <label for="retracement50">50% Retracement:</label>
-      <input type="text" id="retracement50" name="retracement50" readonly><br><br>
-      <label for="retracement61">61.8% Retracement:</label>
-      <input type="text" id="retracement61" name="retracement61" readonly><br><br>
-      <label for="extension61">61.8% Extension:</label>
-      <input type="text" id="extension61" name="extension61" readonly><br><br>
-      <label for="extension100">100% Extension:</label>
-      <input type="text" id="extension100" name="extension100" readonly><br><br>
-      <label for="extension161">161.8% Extension:</label>
-      <input type="text" id="extension161" name="extension161" readonly><br><br>
-      <label for="extension261">261.8% Extension:</label>
-      <input type="text" id="extension261" name="extension261" readonly><br><br>
-      <label for="stopLoss">Stop Loss:</label>
-      <input type="text" id="stopLoss" name="stopLoss" readonly><br><br>
-      <label for="takeProfit">Take Profit:</label>
-      <input type="text" id="takeProfit" name="takeProfit" readonly><br><br>
-    </form>
-    <script>
-      function calculate() {
-        // get the input values
-        const highPrice = parseFloat(document.getElementById('highPrice').value);
-        const lowPrice = parseFloat(document.getElementById('lowPrice').value);
-        const closePrice = parseFloat(document.getElementById('closePrice').value);
 
-        // calculate the wave count
-        // you can use any Elliott Wave analysis library or tool for this
-        const waveCount = '3'; // just an example, you need to replace this with your calculation
+<head>
+  <title>Fibonacci Calculator</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+ <style>
+  .form-display {
+    width: 70%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--bs-body-color);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: var(--bs-body-bg);
+    background-clip: padding-box;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+ </style>
+</head>
 
-        // calculate the Fibonacci retracement levels
-        const previousWaveHigh = highPrice;
-        const previousWaveLow = lowPrice;
-        const retracement38 = (previousWaveHigh - previousWaveLow) *
-        0.382 + previousWaveLow;
-const retracement50 = (previousWaveHigh - previousWaveLow) * 0.5 + previousWaveLow;
-const retracement61 = (previousWaveHigh - previousWaveLow) * 0.618 + previousWaveLow;
-    // calculate the Fibonacci extension levels
-    const waveLength = previousWaveHigh - previousWaveLow;
-    const extension61 = previousWaveHigh + (waveLength * 0.618);
-    const extension100 = previousWaveHigh + waveLength;
-    const extension161 = previousWaveHigh + (waveLength * 1.618);
-    const extension261 = previousWaveHigh + (waveLength * 2.618);
+<body>
+  <div class="container">
+    <div class="row">
+        <!-- <h1>Market Outlook Between Indice and Forex</h1> -->
+        <div class="col-sm-8">
+  <h1>Fibonacci Calculator</h1>
+  <form>
+    <label for="highPrice">Start Price:</label>
+    <input class="form-display" type="number" id="highPrice" name="highPrice" step="0.001" required><br><br>
+    <label for="lowPrice">End Price:</label>
+    <input class="form-display" type="number" id="lowPrice" name="lowPrice" step="0.001" required><br><br>
+    <!-- <label for="closePrice">Close Price:</label>
+    <input class="form-display" type="number" id="closePrice" name="closePrice" step="0.01" required><br><br> -->
+    <button class="btn btn-primary" type="button" onclick="calculate()">Calculate</button><br><br>
+    <!-- <label for="waveCount">Wave Count:</label>
+    <input type="text" id="waveCount" name="waveCount" readonly><br><br> -->
 
-    // calculate the stop loss and take profit levels
-    const stopLoss = previousWaveHigh + (waveLength * 0.02); // 2% above previous wave high
-    const takeProfit = previousWaveLow - (waveLength * 0.02); // 2% below previous wave low
+    <label for="retracement50">Marking Zone A:</label>
+    <input class="form-display" type="text" id="retracement50" name="retracement50" step="0.001" readonly><br><br>
+    <label for="retracement61">Marking Zone B:</label>
+    <input class="form-display" type="text" id="retracement61" name="retracement61" step="0.001" readonly><br><br>
+    <label for="retracement38">Pre TP:</label>
+    <input class="form-display" type="text" id="retracement38" min="0.001" name="retracement38" step="0.001" readonly><br><br>
 
-    // set the output values
-    document.getElementById('waveCount').value = waveCount;
-    document.getElementById('retracement38').value = retracement38.toFixed(2);
-    document.getElementById('retracement50').value = retracement50.toFixed(2);
-    document.getElementById('retracement61').value = retracement61.toFixed(2);
-    document.getElementById('extension61').value = extension61.toFixed(2);
-    document.getElementById('extension100').value = extension100.toFixed(2);
-    document.getElementById('extension161').value = extension161.toFixed(2);
-    document.getElementById('extension261').value = extension261.toFixed(2);
-    document.getElementById('stopLoss').value = stopLoss.toFixed(2);
-    document.getElementById('takeProfit').value = takeProfit.toFixed(2);
-  }
-</script>
 
+
+    <label for="extension61">TP:</label>
+    <input class="form-display" type="text" id="extension61" name="extension61" readonly><br><br>
+    <label for="extension100">100% Extension:</label>
+    <input class="form-display" type="text" id="extension100" name="extension100" readonly><br><br>
+    <label for="extension161">161.8% Extension:</label>
+    <input class="form-display" type="text" id="extension161" name="extension161" readonly><br><br>
+    <label for="extension261">261.8% Extension:</label>
+    <input class="form-display" type="text" id="extension261" name="extension261" readonly><br><br>
+    <label for="stopLoss">Stop Loss:</label>
+    <input class="form-display"type="text" id="stopLoss" name="stopLoss" readonly><br><br>
+    <label for="takeProfit">Take Profit:</label>
+    <input class="form-display"type="text" id="takeProfit" name="takeProfit" readonly><br><br>
+  </form>
+  <script>
+    function calculate() {
+      // get the input values
+      const highPrice = parseFloat(document.getElementById('highPrice').value);
+      const lowPrice = parseFloat(document.getElementById('lowPrice').value);
+     //const closePrice = parseFloat(document.getElementById('closePrice').value);
+      // calculate the wave count
+      // you can use any Elliott Wave analysis library or tool for this
+      //const waveCount = '3'; // just an example, you need to replace this with your calculation
+      // calculate the Fibonacci retracement levels
+      const previousWaveHigh = highPrice;
+      const previousWaveLow = lowPrice;
+      const retracement38 = (previousWaveHigh - previousWaveLow) *
+        0.3 + previousWaveLow;
+      const retracement50 = (previousWaveHigh - previousWaveLow) * 0.58 + previousWaveLow;
+      const retracement61 = (previousWaveHigh - previousWaveLow) * 0.76 + previousWaveLow;
+      // calculate the Fibonacci extension levels
+      const waveLength = previousWaveHigh - previousWaveLow;
+      const extension61 = previousWaveHigh + (waveLength * -0.99);
+      const extension100 = previousWaveHigh + waveLength;
+      const extension161 = previousWaveHigh + (waveLength * 1.618);
+      const extension261 = previousWaveHigh + (waveLength * 2.618);
+      // calculate the stop loss and take profit levels
+      const stopLoss = previousWaveHigh + (waveLength * 0.02); // 2% above previous wave high
+      const takeProfit = previousWaveLow - (waveLength * 0.02); // 2% below previous wave low
+      // set the output values
+      //document.getElementById('waveCount').value = waveCount;
+      document.getElementById('retracement38').value = retracement38.toFixed(2);
+      document.getElementById('retracement50').value = retracement50.toFixed(2);
+      document.getElementById('retracement61').value = retracement61.toFixed(2);
+      document.getElementById('extension61').value = extension61.toFixed(2);
+      document.getElementById('extension100').value = extension100.toFixed(2);
+      document.getElementById('extension161').value = extension161.toFixed(2);
+      document.getElementById('extension261').value = extension261.toFixed(2);
+      document.getElementById('stopLoss').value = stopLoss.toFixed(2);
+      document.getElementById('takeProfit').value = takeProfit.toFixed(2);
+    }
+  </script>
+</div></div></div>
 </body>
+
 </html>
